@@ -9,8 +9,8 @@ RSpec.describe 'Merchants API' do
       
       expect(response).to be_successful
       
-      merchants = JSON.parse(response.body, symbolize_name: true)
-      expect(merchants['data'].size).to eq(20)
+      merchants = JSON.parse(response.body, symbolize_names: true)
+      expect(merchants[:data].size).to eq(20)
     end
   end
 
@@ -20,10 +20,10 @@ RSpec.describe 'Merchants API' do
       merchant = Merchant.first
       get "/api/v1/merchants/#{merchant.id}"
 
-      merch = JSON.parse(response.body, symbolize_name: true) 
+      merch = JSON.parse(response.body, symbolize_names: true) 
 
       expect(response).to be_successful
-      expect(body[:data][:id]).to eq("#{merchant.id}")
+      expect(merch[:data][:id]).to eq("#{merchant.id}")
     end  
   end
 end
