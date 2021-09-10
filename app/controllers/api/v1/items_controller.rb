@@ -23,4 +23,16 @@ class Api::V1::ItemsController < ApplicationController
     item = Item.find(params[:id])
     render json: ItemSerializer.new(item)
   end
+
+  def create
+    # require 'pry'; binding.pry
+    merchant = Merchant.find(params[:item][:merchant_id])
+    render json: merchant.items.create(item_params), status: 201
+  end
+
+  private
+
+  def item_params
+    params.require(:item).permit(:name, :description, :unit_price, :merchant_id)
+  end
 end

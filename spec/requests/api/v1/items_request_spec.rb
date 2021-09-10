@@ -32,23 +32,38 @@ RSpec.describe 'Items API' do
 
   describe 'Item Create' do
     it 'can create a new Item' do
-      item_params = ({
+      item_params = {
                       name: 'Plumbus',
                       description: 'A Plumbus is an all-purpose home device.
                                     Everyone knows what it does, so there is  
                                     no reason to explain it.',
                       unit_price:  700.00,
                       merchant_id: @merchant.id                  
-      })   
+      }   
       headers = {"CONTENT_TYPE" => "application/json"}
       post '/api/v1/items', headers: headers, params: JSON.generate(item: item_params)
-      created_item = Item.last    
-
+      created_item = Hash.new
+      created_item[:data] = JSON.parse(response.body, symbolize_names: true)
+      require 'pry'; binding.pry
+     
       expect(response).to be_successful
-      expect(created_item.name).to eq(item_params[:name])
-      expect(created_item.description).to eq(item_params[:description])
-      expect(created_item.unit_price).to eq(item_params[:unit_price])
-      expect(created_item.merchant_id).to eq(item_params[:merchant_id])
+      expect(created_item[:data][:name]).to eq(item_params[:name])
+      expect(created_item[:data][:description]).to eq(item_params[:description])
+      expect(created_item[:data][:unit_price]).to eq(item_params[:unit_price])
+      expect(created_item[:data][:merchant_id]).to eq(item_params[:merchant_id])
+    end
+  end
+
+  describe 'Item edit' do
+    it 'can edit an item' do
+    end
+  end
+
+  describe 'Item Delete' do
+    it 'can delete a Item' do
+      item = create(:item, merchant: @merchant)
+
+      expect{ delete}
     end
   end
 end
