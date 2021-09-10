@@ -34,6 +34,9 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'factory_bot_rails'
   gem 'faker'
+  gem 'shoulda-matchers'
+  gem 'pry'
+  gem 'fast_jsonapi'
 end
 
 group :development do
@@ -45,6 +48,7 @@ end
 
 group :test do
   gem 'simplecov'
+  gem 'database_cleaner'
 end
 
 
