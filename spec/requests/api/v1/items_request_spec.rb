@@ -44,7 +44,6 @@ RSpec.describe 'Items API' do
       post '/api/v1/items', headers: headers, params: JSON.generate(item: item_params)
       created_item = Hash.new
       created_item[:data] = JSON.parse(response.body, symbolize_names: true)
-      require 'pry'; binding.pry
      
       expect(response).to be_successful
       expect(created_item[:data][:name]).to eq(item_params[:name])
